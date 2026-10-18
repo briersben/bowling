@@ -72,7 +72,7 @@ Status meanings:
 | ---: | --- | --- |
 | 1 | `rejectsTooFewRollsToCompleteTenFrames` | DONE |
 | 2 | `rejectsTenthFrameSpareWithoutBonusRoll` | DONE |
-| 3 | `rejectsTenthFrameStrikeWithoutBothBonusRolls` | PENDING |
+| 3 | `rejectsTenthFrameStrikeWithoutBothBonusRolls` | DONE |
 | 4 | `rejectsExtraRollsAfterTenFrames` | PENDING |
 | 5 | `scoresTenOpenFrames` | PENDING |
 | 6 | `scoresGutterGameAsZero` | PENDING |

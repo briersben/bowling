@@ -24,6 +24,13 @@ class BowlingGameScorerTest {
 	}
 
 	@Test
+	void rejectsTenthFrameStrikeWithoutBothBonusRolls() {
+		var rolls = "-- -- -- -- -- -- -- -- -- X 3";
+
+		assertThrows(IllegalArgumentException.class, () -> scorer.score(rolls));
+	}
+
+	@Test
 	void acceptsLowercaseXForStrikeNotation() {
 		var rolls = "x x x x x x x x x x x x";
 
