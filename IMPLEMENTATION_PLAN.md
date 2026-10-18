@@ -15,10 +15,10 @@ pin counts, `-` is a miss, and `/` marks a spare. Whitespace is ignored.
 implemented.
 
 The initial roll-count-validation test,
-`rejectsTooFewRollsToCompleteTenFrames`, now passes. Tests for both uppercase
-and lowercase strike notation are also in place. Scoring is still a
-placeholder; continue with the remaining roll-count-validation tests below
-before adding scoring tests.
+`rejectsTooFewRollsToCompleteTenFrames`, is implemented and passing. Tests for
+both uppercase and lowercase strike notation are also in place. Scoring is
+still a placeholder; continue with the remaining roll-count-validation tests
+below before adding scoring tests.
 
 The scorer belongs in `com.bnpp.katas.bowling` and should be a Spring-managed
 service (`@Service`). Keep roll-count validation in a separate
@@ -47,15 +47,47 @@ Complete one numbered test at a time. Do not add the later tests in advance.
    `.\mvnw.cmd test`. Refactoring is optional and requires the user's approval;
    rerun the suite after approved refactoring.
 
-The API scaffold and first roll-count test have already been created. Continue
-with that test's red-green cycle, then add only the next planned test. Do not
-implement scoring as part of setting up a test. If a later focused test fails
-to compile for an API/setup reason, report that separately from a meaningful
-failing assertion and stop for review.
+Use the Progress tracking table as the source of truth when resuming work.
+Continue at the earliest `PENDING` step; if a step is `RED — awaiting review`,
+wait for the user's approval before changing production code. Do not implement
+scoring as part of setting up a test. If a focused test fails to compile for an
+API/setup reason, report that separately from a meaningful failing assertion
+and stop for review.
 
 If any test fails due to an unrelated build, environment, or test-discovery
 problem, report that separately and resolve it with the user; do not call it a
 meaningful red step.
+
+## Progress tracking
+
+Status meanings:
+
+- **DONE**: the test and behavior are implemented, and the focused test passes.
+- **RED — awaiting review**: the new test is present and has failed as
+  expected; production code must not be changed until the user approves.
+- **PENDING**: not started.
+- **BLOCKED**: progress cannot continue; explain the reason beside the status.
+
+| Step | Test | Status |
+| ---: | --- | --- |
+| 1 | `rejectsTooFewRollsToCompleteTenFrames` | DONE |
+| 2 | `rejectsTenthFrameSpareWithoutBonusRoll` | PENDING |
+| 3 | `rejectsTenthFrameStrikeWithoutBothBonusRolls` | PENDING |
+| 4 | `rejectsExtraRollsAfterTenFrames` | PENDING |
+| 5 | `scoresTenOpenFrames` | PENDING |
+| 6 | `scoresGutterGameAsZero` | PENDING |
+| 7 | `scoresTenNineAndMissFrames` | PENDING |
+| 8 | `addsTheNextRollToASpare` | PENDING |
+| 9 | `addsTheNextTwoRollsToAStrike` | PENDING |
+| 10 | `scoresConsecutiveStrikesWithCorrectLookahead` | PENDING |
+| 11 | `countsTheTenthFrameSpareBonus` | PENDING |
+| 12 | `countsBothTenthFrameStrikeBonusRolls` | PENDING |
+| 13 | `scoresTenSpareFramesAs150` | PENDING |
+| 14 | `scoresTwelveStrikesAs300` | PENDING |
+
+Notation acceptance checks for uppercase `X` and lowercase `x` are also
+implemented and passing; they are supporting format checks, not separate
+numbered plan steps.
 
 ## Test sequence
 
@@ -224,7 +256,7 @@ All sequences in this phase are complete, valid games.
 
 - [ ] All four roll-count validation cases pass before scoring implementation
   begins.
-- [ ] Each of the fourteen cases has been added and run individually in order.
+- [ ] All fourteen cases are marked DONE in Progress tracking.
 - [ ] Every red result was shown to the user, who had a chance to inspect it
   before implementation continued.
 - [ ] Every green result was reported before starting the next test.

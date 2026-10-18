@@ -59,6 +59,27 @@ Clean Code - TDD : https://cleancoders.com/episode/clean-code-episode-6-p1
 
 **IMPORTANT:**  Implement the requirements focusing on **writing the best code** you can produce.
 
+## REST API
+
+The application exposes `POST /api/bowling/score`. Send the roll sequence in a
+JSON request body:
+
+```json
+{"rolls":"--------------------"}
+```
+
+The response contains the score:
+
+```json
+{"score":0}
+```
+
+The endpoint delegates to `BowlingGameScorer`; scoring is still being
+implemented as part of the kata.
+
+Interactive API documentation is available at `http://localhost:8080/swagger-ui/index.html`;
+the raw OpenAPI document is at `http://localhost:8080/v3/api-docs`.
+
 ## Implementation tracking
 
 The step-by-step, user-checkpointed TDD sequence is documented in
