@@ -71,7 +71,7 @@ Status meanings:
 | Step | Test | Status |
 | ---: | --- | --- |
 | 1 | `rejectsTooFewRollsToCompleteTenFrames` | DONE |
-| 2 | `rejectsTenthFrameSpareWithoutBonusRoll` | PENDING |
+| 2 | `rejectsTenthFrameSpareWithoutBonusRoll` | DONE |
 | 3 | `rejectsTenthFrameStrikeWithoutBothBonusRolls` | PENDING |
 | 4 | `rejectsExtraRollsAfterTenFrames` | PENDING |
 | 5 | `scoresTenOpenFrames` | PENDING |
