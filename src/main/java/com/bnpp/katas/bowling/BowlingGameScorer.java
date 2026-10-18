@@ -1,10 +1,18 @@
 package com.bnpp.katas.bowling;
 
-import java.util.List;
+import org.springframework.stereotype.Service;
 
+@Service
 public class BowlingGameScorer {
 
-	public int score(List<Integer> rolls) {
+	private final BowlingGameRollValidator rollValidator;
+
+	public BowlingGameScorer(BowlingGameRollValidator rollValidator) {
+		this.rollValidator = rollValidator;
+	}
+
+	public int score(String rolls) {
+		rollValidator.validate(rolls);
 		return 0;
 	}
 }

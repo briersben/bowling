@@ -10,6 +10,10 @@ This description is based on that at Adventures in C#: The Bowling Game
 
 Create a program, which, given a valid sequence of rolls for one line of American Ten-Pin Bowling, produces the total score for the game. Here are some things that the program will not do:
 
+The scorer accepts bowling notation as a string: `X` or `x` for a strike,
+`1`-`9` for pins knocked down, `-` for a miss, and `/` for a spare.
+Whitespace is ignored.
+
 ### Problem Description
 * We will not check whether roll values are valid for ten-pin bowling.
 * The scorer will check that the sequence completes exactly ten frames,
