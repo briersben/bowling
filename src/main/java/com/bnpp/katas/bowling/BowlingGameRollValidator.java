@@ -1,11 +1,14 @@
 package com.bnpp.katas.bowling;
 
 import java.util.Locale;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 @Component
 public class BowlingGameRollValidator {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(BowlingGameRollValidator.class);
 	private static final char STRIKE = 'X';
 	private static final char SPARE = '/';
 
@@ -28,20 +31,25 @@ public class BowlingGameRollValidator {
 		}
 
 		if (rollIndex != normalizedRolls.length()) {
-			throw new IllegalArgumentException("A game must contain exactly ten frames");
+			throw invalidRollSequence("A game must contain exactly ten frames");
 		}
 	}
 
 	private char readRoll(String normalizedRolls, int index) {
 		if (index >= normalizedRolls.length()) {
-			throw new IllegalArgumentException("The roll sequence does not complete ten frames");
+			throw invalidRollSequence("The roll sequence does not complete ten frames");
 		}
 
 		var roll = normalizedRolls.charAt(index);
 		if (!isStrike(roll) && !isSpare(roll) && roll != '-' && (roll < '1' || roll > '9')) {
-			throw new IllegalArgumentException("Unsupported roll notation: " + roll);
+			throw invalidRollSequence("Unsupported roll notation: " + roll);
 		}
 		return roll;
+	}
+
+	private IllegalArgumentException invalidRollSequence(String message) {
+		LOGGER.warn("Invalid bowling roll sequence: {}", message);
+		return new IllegalArgumentException(message);
 	}
 
 	private boolean isStrike(char roll) {

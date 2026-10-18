@@ -2,9 +2,14 @@ package com.bnpp.katas.bowling;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.boot.test.system.CapturedOutput;
+import org.springframework.boot.test.system.OutputCaptureExtension;
 
+@ExtendWith(OutputCaptureExtension.class)
 class BowlingGameScorerTest {
 
 	private final BowlingGameScorer scorer = new BowlingGameScorer(new BowlingGameRollValidator());
@@ -28,6 +33,21 @@ class BowlingGameScorerTest {
 		var rolls = "-- -- -- -- -- -- -- -- -- X 3";
 
 		assertThrows(IllegalArgumentException.class, () -> scorer.score(rolls));
+	}
+
+	@Test
+	void rejectsExtraRollsAfterTenFrames() {
+		var rolls = "12 12 12 12 12 12 12 12 12 12 1";
+
+		assertThrows(IllegalArgumentException.class, () -> scorer.score(rolls));
+	}
+
+	@Test
+	void logsInvalidRollSequenceWhenGameIsIncomplete(CapturedOutput output) {
+		var rolls = "-- -- -- -- -- -- -- -- -- -";
+
+		assertThrows(IllegalArgumentException.class, () -> scorer.score(rolls));
+		assertTrue(output.getAll().contains("Invalid bowling roll sequence: The roll sequence does not complete ten frames"));
 	}
 
 	@Test
