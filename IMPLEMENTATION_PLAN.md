@@ -261,5 +261,31 @@ All sequences in this phase are complete, valid games.
   begins.
 - [x] All fourteen cases are marked DONE in Progress tracking.
 - [x] Test results were reported at each TDD checkpoint before progressing.
-- [x] The complete Maven test suite passes (`.\mvnw.cmd clean test`: 29 tests, 0 failures/errors).
-- [x] Any approved refactoring preserves the individual scoring tests (no refactoring was approved).
+- [x] The complete Maven test suite passes (`.\mvnw.cmd test`: 31 tests, 0 failures/errors) after introducing the Frame model.
+- [x] The approved Frame-model refactoring preserves the existing scoring behavior and tests.
+
+## Completed improvement: Model parsed frames
+
+The bowling notation is parsed into an immutable list of `Frame` records
+before scoring. This keeps the public `score(String rolls)` API and current
+documented behavior unchanged.
+
+### Implementation
+
+- `Frame` stores its own roll notation and any bonus-roll notation as separate
+  strings, and calculates its score from those values.
+- `BowlingGameRollValidator.validateAndParse` normalizes notation, validates
+  the required rolls, and returns ten frames. For regular strikes and spares,
+  bonus notation is looked ahead without consuming rolls belonging to the
+  next frame. The tenth frame consumes its own bonus rolls.
+- `BowlingGameScorer` sums the parsed frame scores instead of maintaining
+  scoring logic over indexes in the flattened roll string.
+- No separate `Roll` type was introduced; raw notation remains the frame's
+  stored representation.
+
+### Verification and follow-up
+
+The full Maven suite passes with 31 tests. Review whether the explicit frame
+model and `RollCursor` make the parser easier to maintain; consider a
+dedicated roll-value type only if it meaningfully improves clarity without
+adding unnecessary conversion or domain-object boilerplate.
