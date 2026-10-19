@@ -75,8 +75,8 @@ Status meanings:
 | 3 | `rejectsTenthFrameStrikeWithoutBothBonusRolls` | DONE |
 | 4 | `rejectsExtraRollsAfterTenFrames` | DONE |
 | 5 | `scoresTenOpenFrames` | DONE |
-| 6 | `scoresGutterGameAsZero` | PENDING |
-| 7 | `scoresTenNineAndMissFrames` | PENDING |
+| 6 | `scoresGutterGameAsZero` | DONE |
+| 7 | `scoresTenNineAndMissFrames` | DONE |
 | 8 | `addsTheNextRollToASpare` | PENDING |
 | 9 | `addsTheNextTwoRollsToAStrike` | PENDING |
 | 10 | `scoresConsecutiveStrikesWithCorrectLookahead` | PENDING |

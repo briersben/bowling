@@ -51,6 +51,13 @@ class BowlingGameScorerTest {
 	}
 
 	@Test
+	void scoresTenNineAndMissFrames() {
+		var rolls = "9- 9- 9- 9- 9- 9- 9- 9- 9- 9-";
+
+		assertEquals(90, scorer.score(rolls));
+	}
+
+	@Test
 	void scoresGutterGameAsZero() {
 		var rolls = "-- -- -- -- -- -- -- -- -- --";
 
