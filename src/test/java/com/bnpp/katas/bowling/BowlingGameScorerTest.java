@@ -100,6 +100,13 @@ class BowlingGameScorerTest {
 	}
 
 	@Test
+	void scoresTenSpareFramesAs150() {
+		var rolls = "5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/5";
+
+		assertEquals(150, scorer.score(rolls));
+	}
+
+	@Test
 	void scoresStrikeSpareAndOpenFrames() {
 		var rolls = "X 5/ 3 4 -- -- -- -- -- -- --";
 

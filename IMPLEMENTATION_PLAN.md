@@ -82,7 +82,7 @@ Status meanings:
 | 10 | `scoresConsecutiveStrikesWithCorrectLookahead` | DONE |
 | 11 | `countsTheTenthFrameSpareBonus` | DONE |
 | 12 | `countsBothTenthFrameStrikeBonusRolls` | DONE |
-| 13 | `scoresTenSpareFramesAs150` | PENDING |
+| 13 | `scoresTenSpareFramesAs150` | DONE |
 | 14 | `scoresTwelveStrikesAs300` | PENDING |
 
 Notation acceptance checks for uppercase `X` and lowercase `x` are also
