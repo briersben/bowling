@@ -78,7 +78,7 @@ Status meanings:
 | 6 | `scoresGutterGameAsZero` | DONE |
 | 7 | `scoresTenNineAndMissFrames` | DONE |
 | 8 | `addsTheNextRollToASpare` | DONE |
-| 9 | `addsTheNextTwoRollsToAStrike` | PENDING |
+| 9 | `addsTheNextTwoRollsToAStrike` | DONE |
 | 10 | `scoresConsecutiveStrikesWithCorrectLookahead` | PENDING |
 | 11 | `countsTheTenthFrameSpareBonus` | PENDING |
 | 12 | `countsBothTenthFrameStrikeBonusRolls` | PENDING |
@@ -176,7 +176,7 @@ All sequences in this phase are complete, valid games.
 #### 8. Add a spare bonus
 
 - Suggested test name: `addsTheNextRollToASpare`
-- Rolls: `"5/3-"`, followed by `"--"` repeated 8 times.
+- Rolls: `"5/ 3-"`, followed by `"--"` repeated 8 times.
 - Expected total: `16`.
 - Check: the spare frame scores `10 + 3 = 13`; the following frame scores
   `3`; the remaining frames score zero. Total: `13 + 3 = 16`.
@@ -185,7 +185,7 @@ All sequences in this phase are complete, valid games.
 #### 9. Add a strike bonus
 
 - Suggested test name: `addsTheNextTwoRollsToAStrike`
-- Rolls: `"X34"`, followed by `"--"` repeated 8 times.
+- Rolls: `"X 34"`, followed by `"--"` repeated 8 times.
 - Expected total: `24`.
 - Check: the strike frame scores `10 + 3 + 4 = 17`; the next frame scores
   `3 + 4 = 7`; the remaining frames score zero. Total: `17 + 7 = 24`.
@@ -195,7 +195,7 @@ All sequences in this phase are complete, valid games.
 #### 10. Cover consecutive strikes
 
 - Suggested test name: `scoresConsecutiveStrikesWithCorrectLookahead`
-- Rolls: `"XX34"`, followed by `"--"` repeated 7 times.
+- Rolls: `"X X 34"`, followed by `"--"` repeated 7 times.
 - Expected total: `47`.
 - Check: the first strike scores `10 + 10 + 3 = 23`; the second scores
   `10 + 3 + 4 = 17`; the `[3, 4]` frame scores `7`. Total:
@@ -249,6 +249,10 @@ All sequences in this phase are complete, valid games.
   `@SpringBootTest` for isolated scorer tests).
 - Keep notation explicit in each test so frame and bonus behavior can be
   reviewed without debugging test-data helpers.
+- Separate frames with a single space in test roll strings. Keep each frame's
+  rolls together: two rolls for an open frame (`34`), the first roll and `/`
+  for a spare (`5/`), and any tenth-frame bonus rolls attached to that frame
+  (`5/3` or `X34`).
 - Do not add pin-count or pin-value validation tests; these behaviors are
   outside the agreed scope.
 
