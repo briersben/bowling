@@ -176,7 +176,7 @@ All sequences in this phase are complete, valid games.
 #### 8. Add a spare bonus
 
 - Suggested test name: `addsTheNextRollToASpare`
-- Rolls: `"5/30"`, followed by `"--"` repeated 8 times.
+- Rolls: `"5/3-"`, followed by `"--"` repeated 8 times.
 - Expected total: `16`.
 - Check: the spare frame scores `10 + 3 = 13`; the following frame scores
   `3`; the remaining frames score zero. Total: `13 + 3 = 16`.
