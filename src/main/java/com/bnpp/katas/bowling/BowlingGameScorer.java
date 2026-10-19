@@ -21,37 +21,42 @@ public class BowlingGameScorer {
 		var rollIndex = 0;
 
 		for (var frame = 0; frame < 9; frame++) {
-			var firstRoll = normalizedRolls.charAt(rollIndex++);
-			if (firstRoll == 'X') {
-				total += 10 + nextTwoRollsValue(normalizedRolls, rollIndex);
-				continue;
-			}
-
-			var secondRoll = normalizedRolls.charAt(rollIndex++);
-			if (secondRoll == '/') {
-				total += 10 + scoreOfBonusRoll(normalizedRolls, rollIndex);
-			} else {
-				total += valueOf(firstRoll, 0) + valueOf(secondRoll, 0);
-			}
+			var frameScore = scoreRegularFrame(normalizedRolls, rollIndex);
+			total += frameScore.points();
+			rollIndex += frameScore.rollsConsumed();
 		}
 
-		var tenthFrameFirstRoll = normalizedRolls.charAt(rollIndex++);
-		if (tenthFrameFirstRoll == 'X') {
-			var secondBonusRoll = normalizedRolls.charAt(rollIndex++);
-			var thirdBonusRoll = normalizedRolls.charAt(rollIndex++);
-			total += 10 + valueOf(secondBonusRoll, 0) + valueOf(thirdBonusRoll, valueOf(secondBonusRoll, 0));
-		} else {
-			var secondRoll = normalizedRolls.charAt(rollIndex++);
-			if (secondRoll == '/') {
-				var bonusRoll = normalizedRolls.charAt(rollIndex++);
-				total += 10 + valueOf(bonusRoll, 0);
-			} else {
-				total += valueOf(tenthFrameFirstRoll, 0) + valueOf(secondRoll, 0);
-			}
-		}
+		total += scoreTenthFrame(normalizedRolls, rollIndex);
 
 		LOGGER.debug("Bowling game score: {}", total);
 		return total;
+	}
+
+	private int scoreTenthFrame(String rolls, int rollIndex) {
+		var firstRoll = rolls.charAt(rollIndex++);
+		if (firstRoll == 'X') {
+			return 10 + nextTwoRollsValue(rolls, rollIndex);
+		}
+
+		var secondRoll = rolls.charAt(rollIndex++);
+		if (secondRoll == '/') {
+			return 10 + scoreOfBonusRoll(rolls, rollIndex);
+		}
+		return valueOf(firstRoll, 0) + valueOf(secondRoll, 0);
+	}
+
+	private FrameScore scoreRegularFrame(String rolls, int rollIndex) {
+		var firstRoll = rolls.charAt(rollIndex);
+		if (firstRoll == 'X') {
+			return new FrameScore(10 + nextTwoRollsValue(rolls, rollIndex + 1), 1);
+		}
+
+		var secondRoll = rolls.charAt(rollIndex + 1);
+		if (secondRoll == '/') {
+			return new FrameScore(10 + scoreOfBonusRoll(rolls, rollIndex + 2), 2);
+		}
+
+		return new FrameScore(valueOf(firstRoll, 0) + valueOf(secondRoll, 0), 2);
 	}
 
 	private int nextTwoRollsValue(String normalizedRolls, int startIndex) {
@@ -65,15 +70,14 @@ public class BowlingGameScorer {
 	}
 
 	private int valueOf(char roll, int previousRollValue) {
-		if (roll == 'X') {
-			return 10;
-		}
-		if (roll == '-') {
-			return 0;
-		}
-		if (roll == '/') {
-			return 10 - previousRollValue;
-		}
-		return Character.digit(roll, 10);
+		return switch (roll) {
+			case 'X' -> 10;
+			case '-' -> 0;
+			case '/' -> 10 - previousRollValue;
+			default -> Character.digit(roll, 10);
+		};
+	}
+
+	private record FrameScore(int points, int rollsConsumed) {
 	}
 }
