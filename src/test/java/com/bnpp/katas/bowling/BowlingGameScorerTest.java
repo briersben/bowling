@@ -79,6 +79,13 @@ class BowlingGameScorerTest {
 	}
 
 	@Test
+	void scoresConsecutiveStrikesWithCorrectLookahead() {
+		var rolls = "X X 34 -- -- -- -- -- -- --";
+
+		assertEquals(47, scorer.score(rolls));
+	}
+
+	@Test
 	void scoresStrikeSpareAndOpenFrames() {
 		var rolls = "X 5/ 3 4 -- -- -- -- -- -- --";
 

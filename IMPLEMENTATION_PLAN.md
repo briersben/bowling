@@ -79,7 +79,7 @@ Status meanings:
 | 7 | `scoresTenNineAndMissFrames` | DONE |
 | 8 | `addsTheNextRollToASpare` | DONE |
 | 9 | `addsTheNextTwoRollsToAStrike` | DONE |
-| 10 | `scoresConsecutiveStrikesWithCorrectLookahead` | PENDING |
+| 10 | `scoresConsecutiveStrikesWithCorrectLookahead` | DONE |
 | 11 | `countsTheTenthFrameSpareBonus` | PENDING |
 | 12 | `countsBothTenthFrameStrikeBonusRolls` | PENDING |
 | 13 | `scoresTenSpareFramesAs150` | PENDING |
