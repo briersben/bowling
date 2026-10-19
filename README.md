@@ -74,8 +74,10 @@ The response contains the score:
 {"score":0}
 ```
 
-The endpoint delegates to `BowlingGameScorer`; scoring is still being
-implemented as part of the kata.
+The endpoint delegates to `BowlingGameScorer`. The `rolls` value accepts `X` or
+`x` for a strike, `1`-`9` for pins, `-` for a miss, and `/` for a spare;
+whitespace is ignored. Invalid notation or a sequence that does not complete
+exactly ten frames returns `400 Bad Request` with a Problem Details response.
 
 Interactive API documentation is available at `http://localhost:8080/swagger-ui/index.html`;
 the raw OpenAPI document is at `http://localhost:8080/v3/api-docs`.

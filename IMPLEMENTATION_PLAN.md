@@ -108,7 +108,8 @@ again at green.
 #### 1. Reject too few rolls to complete ten frames
 
 - Suggested test name: `rejectsTooFewRollsToCompleteTenFrames`
-- Rolls: `"-------------------"` (19 gutter rolls).
+- Rolls: `"-- -- -- -- -- -- -- -- -- -"` (nine gutter frames and one roll in
+  the tenth frame; 19 rolls total).
 - Expected result: throw `IllegalArgumentException`.
 - Check: nineteen gutter rolls form only nine complete two-roll frames and
   leave the tenth frame incomplete.
@@ -117,8 +118,8 @@ again at green.
 #### 2. Reject a tenth-frame spare without its bonus roll
 
 - Suggested test name: `rejectsTenthFrameSpareWithoutBonusRoll`
-- Rolls: `"------------------5/"` (nine gutter frames and an incomplete
-  tenth-frame spare).
+- Rolls: `"-- -- -- -- -- -- -- -- -- 5/"` (nine gutter frames and an
+  incomplete tenth-frame spare).
 - Expected result: throw `IllegalArgumentException`.
 - Check: the tenth-frame spare requires exactly one bonus roll.
 - Purpose: verify that a spare's required tenth-frame bonus is part of a
@@ -127,8 +128,8 @@ again at green.
 #### 3. Reject a tenth-frame strike without both bonus rolls
 
 - Suggested test name: `rejectsTenthFrameStrikeWithoutBothBonusRolls`
-- Rolls: `"------------------X3"` (nine gutter frames and a tenth-frame
-  strike with one bonus roll).
+- Rolls: `"-- -- -- -- -- -- -- -- -- X3"` (nine gutter frames and a
+  tenth-frame strike with one bonus roll).
 - Expected result: throw `IllegalArgumentException`.
 - Check: the tenth-frame strike requires two bonus rolls; only one is present.
 - Purpose: verify that the tenth-frame strike cannot finish with only one
@@ -137,7 +138,8 @@ again at green.
 #### 4. Reject extra rolls after ten frames
 
 - Suggested test name: `rejectsExtraRollsAfterTenFrames`
-- Rolls: `"12"` repeated 10 times, followed by `"1"` (21 rolls).
+- Rolls: `"12 12 12 12 12 12 12 12 12 12 1"` (ten open frames followed by
+  one extra roll; 21 rolls total).
 - Expected result: throw `IllegalArgumentException`.
 - Check: the ten open frames consume exactly 20 rolls; the twenty-first roll
   cannot be assigned to a frame or a tenth-frame bonus.
@@ -150,7 +152,7 @@ All sequences in this phase are complete, valid games.
 #### 5. Sum a basic open game
 
 - Suggested test name: `scoresTenOpenFrames`
-- Rolls: `"12"` repeated 10 times.
+- Rolls: `"12 12 12 12 12 12 12 12 12 12"`.
 - Expected total: `30`.
 - Check: ten frames score `1 + 2 = 3` each; `10 × 3 = 30`.
 - Purpose: establishes the total-score API and ordinary two-roll frame
@@ -160,7 +162,7 @@ All sequences in this phase are complete, valid games.
 #### 6. Score a gutter game
 
 - Suggested test name: `scoresGutterGameAsZero`
-- Rolls: `"--"` repeated 10 times.
+- Rolls: `"-- -- -- -- -- -- -- -- -- --"`.
 - Expected total: `0`.
 - Check: all twenty rolls knock down zero pins.
 - Purpose: verifies the zero-score boundary after basic accumulation works.
@@ -168,7 +170,7 @@ All sequences in this phase are complete, valid games.
 #### 7. Cover the README's open-frame example
 
 - Suggested test name: `scoresTenNineAndMissFrames`
-- Rolls: `"9-"` repeated 10 times.
+- Rolls: `"9- 9- 9- 9- 9- 9- 9- 9- 9- 9-"`.
 - Expected total: `90`.
 - Check: ten open frames score `9` each; `10 × 9 = 90`.
 - Purpose: confirms the kata's all-open example.
@@ -176,7 +178,7 @@ All sequences in this phase are complete, valid games.
 #### 8. Add a spare bonus
 
 - Suggested test name: `addsTheNextRollToASpare`
-- Rolls: `"5/ 3-"`, followed by `"--"` repeated 8 times.
+- Rolls: `"5/ 3- -- -- -- -- -- -- -- --"`.
 - Expected total: `16`.
 - Check: the spare frame scores `10 + 3 = 13`; the following frame scores
   `3`; the remaining frames score zero. Total: `13 + 3 = 16`.
@@ -185,7 +187,7 @@ All sequences in this phase are complete, valid games.
 #### 9. Add a strike bonus
 
 - Suggested test name: `addsTheNextTwoRollsToAStrike`
-- Rolls: `"X 34"`, followed by `"--"` repeated 8 times.
+- Rolls: `"X 34 -- -- -- -- -- -- -- --"`.
 - Expected total: `24`.
 - Check: the strike frame scores `10 + 3 + 4 = 17`; the next frame scores
   `3 + 4 = 7`; the remaining frames score zero. Total: `17 + 7 = 24`.
@@ -195,7 +197,7 @@ All sequences in this phase are complete, valid games.
 #### 10. Cover consecutive strikes
 
 - Suggested test name: `scoresConsecutiveStrikesWithCorrectLookahead`
-- Rolls: `"X X 34"`, followed by `"--"` repeated 7 times.
+- Rolls: `"X X 34 -- -- -- -- -- -- --"`.
 - Expected total: `47`.
 - Check: the first strike scores `10 + 10 + 3 = 23`; the second scores
   `10 + 3 + 4 = 17`; the `[3, 4]` frame scores `7`. Total:
@@ -206,7 +208,7 @@ All sequences in this phase are complete, valid games.
 #### 11. Score a spare in the tenth frame
 
 - Suggested test name: `countsTheTenthFrameSpareBonus`
-- Rolls: `"--"` repeated 9 times, followed by `"5/3"`.
+- Rolls: `"-- -- -- -- -- -- -- -- -- 5/3"`.
 - Expected total: `13`.
 - Check: the first nine frames score zero; the tenth-frame spare scores
   `10 + 3 = 13`.
@@ -216,7 +218,7 @@ All sequences in this phase are complete, valid games.
 #### 12. Score a strike in the tenth frame
 
 - Suggested test name: `countsBothTenthFrameStrikeBonusRolls`
-- Rolls: `"--"` repeated 9 times, followed by `"X34"`.
+- Rolls: `"-- -- -- -- -- -- -- -- -- X34"`.
 - Expected total: `17`.
 - Check: the first nine frames score zero; the tenth-frame strike scores
   `10 + 3 + 4 = 17`.
@@ -225,7 +227,7 @@ All sequences in this phase are complete, valid games.
 #### 13. Cover the README's all-spare example
 
 - Suggested test name: `scoresTenSpareFramesAs150`
-- Rolls: `"5/"` repeated 9 times, followed by `"5/5"`.
+- Rolls: `"5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/5"`.
 - Expected total: `150`.
 - Check: the first nine spares score `15` each; the tenth-frame spare scores
   `15`. Total: `10 × 15 = 150`.
@@ -234,7 +236,7 @@ All sequences in this phase are complete, valid games.
 #### 14. Cover the perfect game
 
 - Suggested test name: `scoresTwelveStrikesAs300`
-- Rolls: `"X"` repeated 12 times.
+- Rolls: `"X X X X X X X X X X X X"`.
 - Expected total: `300`.
 - Check: each of ten frames scores `30`, including the tenth frame's two
   bonus rolls. Total: `10 × 30 = 300`.
