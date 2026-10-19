@@ -81,7 +81,7 @@ Status meanings:
 | 9 | `addsTheNextTwoRollsToAStrike` | DONE |
 | 10 | `scoresConsecutiveStrikesWithCorrectLookahead` | DONE |
 | 11 | `countsTheTenthFrameSpareBonus` | DONE |
-| 12 | `countsBothTenthFrameStrikeBonusRolls` | PENDING |
+| 12 | `countsBothTenthFrameStrikeBonusRolls` | DONE |
 | 13 | `scoresTenSpareFramesAs150` | PENDING |
 | 14 | `scoresTwelveStrikesAs300` | PENDING |
 

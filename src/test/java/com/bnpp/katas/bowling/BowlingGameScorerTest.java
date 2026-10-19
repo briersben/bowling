@@ -93,6 +93,13 @@ class BowlingGameScorerTest {
 	}
 
 	@Test
+	void countsBothTenthFrameStrikeBonusRolls() {
+		var rolls = "-- -- -- -- -- -- -- -- -- X34";
+
+		assertEquals(17, scorer.score(rolls));
+	}
+
+	@Test
 	void scoresStrikeSpareAndOpenFrames() {
 		var rolls = "X 5/ 3 4 -- -- -- -- -- -- --";
 
