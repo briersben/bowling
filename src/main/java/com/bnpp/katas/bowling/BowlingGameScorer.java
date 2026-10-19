@@ -1,6 +1,5 @@
 package com.bnpp.katas.bowling;
 
-import java.util.Locale;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -17,8 +16,7 @@ public class BowlingGameScorer {
 	}
 
 	public int score(String rolls) {
-		rollValidator.validate(rolls);
-		var normalizedRolls = rolls.replaceAll("\\s", "").toUpperCase(Locale.ROOT);
+		var normalizedRolls = rollValidator.validateAndNormalize(rolls);
 		var total = 0;
 		var rollIndex = 0;
 

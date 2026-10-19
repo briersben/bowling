@@ -12,7 +12,7 @@ public class BowlingGameRollValidator {
 	private static final char STRIKE = 'X';
 	private static final char SPARE = '/';
 
-	public void validate(String rolls) {
+	public String validateAndNormalize(String rolls) {
 		var normalizedRolls = rolls.replaceAll("\\s", "").toUpperCase(Locale.ROOT);
 		var rollIndex = 0;
 
@@ -33,6 +33,8 @@ public class BowlingGameRollValidator {
 		if (rollIndex != normalizedRolls.length()) {
 			throw invalidRollSequence("A game must contain exactly ten frames");
 		}
+
+		return normalizedRolls;
 	}
 
 	private char readRoll(String normalizedRolls, int index) {
