@@ -1,6 +1,7 @@
 package com.bnpp.katas.bowling;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -40,6 +41,20 @@ class BowlingGameScorerTest {
 		var rolls = "12 12 12 12 12 12 12 12 12 12 1";
 
 		assertThrows(IllegalArgumentException.class, () -> scorer.score(rolls));
+	}
+
+	@Test
+	void scoresTenOpenFrames() {
+		var rolls = "12 12 12 12 12 12 12 12 12 12";
+
+		assertEquals(30, scorer.score(rolls));
+	}
+
+	@Test
+	void logsCalculatedScoreAtDebugLevel(CapturedOutput output) {
+		scorer.score("12 12 12 12 12 12 12 12 12 12");
+
+		assertTrue(output.getAll().contains("Bowling game score: 30"));
 	}
 
 	@Test

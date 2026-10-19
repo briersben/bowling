@@ -74,7 +74,7 @@ Status meanings:
 | 2 | `rejectsTenthFrameSpareWithoutBonusRoll` | DONE |
 | 3 | `rejectsTenthFrameStrikeWithoutBothBonusRolls` | DONE |
 | 4 | `rejectsExtraRollsAfterTenFrames` | DONE |
-| 5 | `scoresTenOpenFrames` | PENDING |
+| 5 | `scoresTenOpenFrames` | DONE |
 | 6 | `scoresGutterGameAsZero` | PENDING |
 | 7 | `scoresTenNineAndMissFrames` | PENDING |
 | 8 | `addsTheNextRollToASpare` | PENDING |
