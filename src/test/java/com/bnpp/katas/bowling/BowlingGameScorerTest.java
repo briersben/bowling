@@ -7,6 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.boot.test.system.CapturedOutput;
 import org.springframework.boot.test.system.OutputCaptureExtension;
 
@@ -149,17 +151,9 @@ class BowlingGameScorerTest {
 		assertTrue(output.getAll().contains("Invalid bowling roll sequence: The roll sequence does not complete ten frames"));
 	}
 
-	@Test
-	void acceptsLowercaseXForStrikeNotation() {
-		var rolls = "x x x x x x x x x x x x";
-
-		assertDoesNotThrow(() -> scorer.score(rolls));
-	}
-
-	@Test
-	void acceptsUppercaseXForStrikeNotation() {
-		var rolls = "X X X X X X X X X X X X";
-
+	@ParameterizedTest
+	@ValueSource(strings = {"x x x x x x x x x x x x", "X X X X X X X X X X X X"})
+	void acceptsUppercaseAndLowercaseXForStrikeNotation(String rolls) {
 		assertDoesNotThrow(() -> scorer.score(rolls));
 	}
 }
