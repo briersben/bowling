@@ -107,6 +107,13 @@ class BowlingGameScorerTest {
 	}
 
 	@Test
+	void scoresTwelveStrikesAs300() {
+		var rolls = "X X X X X X X X X X X X";
+
+		assertEquals(300, scorer.score(rolls));
+	}
+
+	@Test
 	void scoresStrikeSpareAndOpenFrames() {
 		var rolls = "X 5/ 3 4 -- -- -- -- -- -- --";
 

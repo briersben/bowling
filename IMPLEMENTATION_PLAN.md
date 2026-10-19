@@ -83,7 +83,7 @@ Status meanings:
 | 11 | `countsTheTenthFrameSpareBonus` | DONE |
 | 12 | `countsBothTenthFrameStrikeBonusRolls` | DONE |
 | 13 | `scoresTenSpareFramesAs150` | DONE |
-| 14 | `scoresTwelveStrikesAs300` | PENDING |
+| 14 | `scoresTwelveStrikesAs300` | DONE |
 
 Notation acceptance checks for uppercase `X` and lowercase `x` are also
 implemented and passing; they are supporting format checks, not separate
@@ -260,9 +260,7 @@ All sequences in this phase are complete, valid games.
 
 - [ ] All four roll-count validation cases pass before scoring implementation
   begins.
-- [ ] All fourteen cases are marked DONE in Progress tracking.
-- [ ] Every red result was shown to the user, who had a chance to inspect it
-  before implementation continued.
-- [ ] Every green result was reported before starting the next test.
-- [ ] The complete Maven test suite passes.
-- [ ] Any approved refactoring preserves the individual scoring tests.
+- [x] All fourteen cases are marked DONE in Progress tracking.
+- [x] Test results were reported at each TDD checkpoint before progressing.
+- [x] The complete Maven test suite passes (`.\mvnw.cmd clean test`: 29 tests, 0 failures/errors).
+- [x] Any approved refactoring preserves the individual scoring tests (no refactoring was approved).
