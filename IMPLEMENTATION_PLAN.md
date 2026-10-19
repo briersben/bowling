@@ -77,7 +77,7 @@ Status meanings:
 | 5 | `scoresTenOpenFrames` | DONE |
 | 6 | `scoresGutterGameAsZero` | DONE |
 | 7 | `scoresTenNineAndMissFrames` | DONE |
-| 8 | `addsTheNextRollToASpare` | PENDING |
+| 8 | `addsTheNextRollToASpare` | DONE |
 | 9 | `addsTheNextTwoRollsToAStrike` | PENDING |
 | 10 | `scoresConsecutiveStrikesWithCorrectLookahead` | PENDING |
 | 11 | `countsTheTenthFrameSpareBonus` | PENDING |
