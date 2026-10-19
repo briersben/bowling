@@ -80,7 +80,7 @@ Status meanings:
 | 8 | `addsTheNextRollToASpare` | DONE |
 | 9 | `addsTheNextTwoRollsToAStrike` | DONE |
 | 10 | `scoresConsecutiveStrikesWithCorrectLookahead` | DONE |
-| 11 | `countsTheTenthFrameSpareBonus` | PENDING |
+| 11 | `countsTheTenthFrameSpareBonus` | DONE |
 | 12 | `countsBothTenthFrameStrikeBonusRolls` | PENDING |
 | 13 | `scoresTenSpareFramesAs150` | PENDING |
 | 14 | `scoresTwelveStrikesAs300` | PENDING |
