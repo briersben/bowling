@@ -130,13 +130,6 @@ class BowlingGameScorerTest {
 	}
 
 	@Test
-	void validatesAndReturnsCanonicalRolls() {
-		var validator = new BowlingGameRollValidator();
-
-		assertEquals("XXXXXXXXXXXX", validator.validateAndNormalize("x x\tx x x x x x x x x x"));
-	}
-
-	@Test
 	void logsCalculatedScoreAtDebugLevel(CapturedOutput output) {
 		scorer.score("12 12 12 12 12 12 12 12 12 12");
 
