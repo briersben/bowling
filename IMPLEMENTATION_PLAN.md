@@ -258,7 +258,7 @@ All sequences in this phase are complete, valid games.
 
 ## Completion checklist
 
-- [ ] All four roll-count validation cases pass before scoring implementation
+- [x] All four roll-count validation cases pass before scoring implementation
   begins.
 - [x] All fourteen cases are marked DONE in Progress tracking.
 - [x] Test results were reported at each TDD checkpoint before progressing.
