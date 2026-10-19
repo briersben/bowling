@@ -87,21 +87,21 @@ class BowlingGameScorerTest {
 
 	@Test
 	void countsTheTenthFrameSpareBonus() {
-		var rolls = "-- -- -- -- -- -- -- -- -- 5/3";
+		var rolls = "-- -- -- -- -- -- -- -- -- 5/ 3";
 
 		assertEquals(13, scorer.score(rolls));
 	}
 
 	@Test
 	void countsBothTenthFrameStrikeBonusRolls() {
-		var rolls = "-- -- -- -- -- -- -- -- -- X34";
+		var rolls = "-- -- -- -- -- -- -- -- -- X 34";
 
 		assertEquals(17, scorer.score(rolls));
 	}
 
 	@Test
 	void scoresTenSpareFramesAs150() {
-		var rolls = "5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/5";
+		var rolls = "5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/ 5";
 
 		assertEquals(150, scorer.score(rolls));
 	}
@@ -115,28 +115,14 @@ class BowlingGameScorerTest {
 
 	@Test
 	void scoresStrikeSpareAndOpenFrames() {
-		var rolls = "X 5/ 3 4 -- -- -- -- -- -- --";
+		var rolls = "X 5/ 34 -- -- -- -- -- -- --";
 
 		assertEquals(40, scorer.score(rolls));
 	}
 
 	@Test
-	void scoresTenthFrameSpareAndBonusRoll() {
-		var rolls = "-- -- -- -- -- -- -- -- -- 5/3";
-
-		assertEquals(13, scorer.score(rolls));
-	}
-
-	@Test
-	void scoresTenthFrameStrikeAndBothBonusRolls() {
-		var rolls = "-- -- -- -- -- -- -- -- -- X34";
-
-		assertEquals(17, scorer.score(rolls));
-	}
-
-	@Test
 	void scoresSpareNotationAsSecondTenthFrameStrikeBonusRoll() {
-		var rolls = "-- -- -- -- -- -- -- -- -- X5/";
+		var rolls = "-- -- -- -- -- -- -- -- -- X 5/";
 
 		assertEquals(20, scorer.score(rolls));
 	}

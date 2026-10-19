@@ -11,14 +11,11 @@ of scope.
 
 The scorer accepts a notation `String`: `X` or `x` means strike, `1`-`9` are
 pin counts, `-` is a miss, and `/` marks a spare. Whitespace is ignored.
-`BowlingGameScorer.score(String rolls)` returns the total once scoring is
-implemented.
+`BowlingGameScorer.score(String rolls)` returns the total for a complete game.
 
-The initial roll-count-validation test,
-`rejectsTooFewRollsToCompleteTenFrames`, is implemented and passing. Tests for
-both uppercase and lowercase strike notation are also in place. Scoring is
-still a placeholder; continue with the remaining roll-count-validation tests
-below before adding scoring tests.
+The planned roll-count-validation and scoring tests are implemented and
+passing, and all numbered steps below are marked DONE. Scoring is implemented;
+the test sequence is retained as a record of the completed TDD workflow.
 
 The scorer belongs in `com.bnpp.katas.bowling` and should be a Spring-managed
 service (`@Service`). Keep roll-count validation in a separate
@@ -208,7 +205,7 @@ All sequences in this phase are complete, valid games.
 #### 11. Score a spare in the tenth frame
 
 - Suggested test name: `countsTheTenthFrameSpareBonus`
-- Rolls: `"-- -- -- -- -- -- -- -- -- 5/3"`.
+- Rolls: `"-- -- -- -- -- -- -- -- -- 5/ 3"`.
 - Expected total: `13`.
 - Check: the first nine frames score zero; the tenth-frame spare scores
   `10 + 3 = 13`.
@@ -218,7 +215,7 @@ All sequences in this phase are complete, valid games.
 #### 12. Score a strike in the tenth frame
 
 - Suggested test name: `countsBothTenthFrameStrikeBonusRolls`
-- Rolls: `"-- -- -- -- -- -- -- -- -- X34"`.
+- Rolls: `"-- -- -- -- -- -- -- -- -- X 34"`.
 - Expected total: `17`.
 - Check: the first nine frames score zero; the tenth-frame strike scores
   `10 + 3 + 4 = 17`.
@@ -227,7 +224,7 @@ All sequences in this phase are complete, valid games.
 #### 13. Cover the README's all-spare example
 
 - Suggested test name: `scoresTenSpareFramesAs150`
-- Rolls: `"5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/5"`.
+- Rolls: `"5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/ 5"`.
 - Expected total: `150`.
 - Check: the first nine spares score `15` each; the tenth-frame spare scores
   `15`. Total: `10 × 15 = 150`.
@@ -253,8 +250,8 @@ All sequences in this phase are complete, valid games.
   reviewed without debugging test-data helpers.
 - Separate frames with a single space in test roll strings. Keep each frame's
   rolls together: two rolls for an open frame (`34`), the first roll and `/`
-  for a spare (`5/`), and any tenth-frame bonus rolls attached to that frame
-  (`5/3` or `X34`).
+  for a spare (`5/`). Separate tenth-frame bonus rolls from the frame notation
+  with a space; keep the two strike bonus rolls together (`5/ 3` or `X 34`).
 - Do not add pin-count or pin-value validation tests; these behaviors are
   outside the agreed scope.
 
