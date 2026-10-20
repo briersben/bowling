@@ -1,25 +1,28 @@
 package com.bnpp.katas.bowling;
 
-record Frame(String rolls, String bonusRolls) {
+import java.util.List;
+
+record Frame(List<Roll> rolls, List<Roll> bonusRolls) {
+
+	Frame {
+		rolls = List.copyOf(rolls);
+		bonusRolls = List.copyOf(bonusRolls);
+	}
 
 	int score() {
-		var allRolls = rolls + bonusRolls;
 		var score = 0;
 		var previousRollPinCount = 0;
 
-		for (var index = 0; index < allRolls.length(); index++) {
-			previousRollPinCount = valueOf(allRolls.charAt(index), previousRollPinCount);
+		for (var roll : rolls) {
+			previousRollPinCount = roll.pinCount(previousRollPinCount);
 			score += previousRollPinCount;
 		}
-		return score;
-	}
 
-	private int valueOf(char roll, int previousRollPinCount) {
-		return switch (roll) {
-			case 'X' -> 10;
-			case '-' -> 0;
-			case '/' -> 10 - previousRollPinCount;
-			default -> Character.digit(roll, 10);
-		};
+		for (var bonusRoll : bonusRolls) {
+			previousRollPinCount = bonusRoll.pinCount(previousRollPinCount);
+			score += previousRollPinCount;
+		}
+
+		return score;
 	}
 }

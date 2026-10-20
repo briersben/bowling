@@ -8,13 +8,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 @Component
-public class BowlingGameRollValidator {
+public class BowlingGameParser {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(BowlingGameRollValidator.class);
-	private static final char STRIKE = 'X';
-	private static final char SPARE = '/';
+	private static final Logger LOGGER = LoggerFactory.getLogger(BowlingGameParser.class);
 
-	public List<Frame> validateAndParse(String rolls) {
+	public List<Frame> parse(String rolls) {
 		var normalizedRolls = rolls.replaceAll("\\s", "").toUpperCase(Locale.ROOT);
 		var rollCursor = new RollCursor(normalizedRolls);
 		var frames = new ArrayList<Frame>(10);
@@ -34,40 +32,40 @@ public class BowlingGameRollValidator {
 
 	private Frame parseRegularFrame(RollCursor rollCursor) {
 		var firstRoll = rollCursor.readNextRoll();
-		if (isStrike(firstRoll)) {
+		if (firstRoll.isStrike()) {
 			return new Frame(
-					String.valueOf(firstRoll),
+					List.of(firstRoll),
 					rollCursor.peekNextRolls(2));
 		}
 
 		var secondRoll = rollCursor.readNextRoll();
-		var frameRolls = "" + firstRoll + secondRoll;
-		var bonusRolls = isSpare(secondRoll) ? rollCursor.peekNextRolls(1) : "";
+		var frameRolls = List.of(firstRoll, secondRoll);
+		var bonusRolls = secondRoll.isSpare() ? rollCursor.peekNextRolls(1) : List.<Roll>of();
 		return new Frame(frameRolls, bonusRolls);
 	}
 
 	private Frame parseTenthFrame(RollCursor rollCursor) {
 		var firstRoll = rollCursor.readNextRoll();
-		if (isStrike(firstRoll)) {
+		if (firstRoll.isStrike()) {
 			return new Frame(
-					String.valueOf(firstRoll),
+					List.of(firstRoll),
 					rollCursor.readNextRolls(2));
 		}
 
 		var secondRoll = rollCursor.readNextRoll();
-		var frameRolls = "" + firstRoll + secondRoll;
-		var bonusRolls = isSpare(secondRoll) ? rollCursor.readNextRolls(1) : "";
+		var frameRolls = List.of(firstRoll, secondRoll);
+		var bonusRolls = secondRoll.isSpare() ? rollCursor.readNextRolls(1) : List.<Roll>of();
 		return new Frame(frameRolls, bonusRolls);
 	}
 
-	private char readRoll(String normalizedRolls, int index) {
+	private Roll readRoll(String normalizedRolls, int index) {
 		if (index >= normalizedRolls.length()) {
 			throw invalidRollSequence("The roll sequence does not complete ten frames");
 		}
 
-		var roll = normalizedRolls.charAt(index);
-		if (!isStrike(roll) && !isSpare(roll) && roll != '-' && (roll < '1' || roll > '9')) {
-			throw invalidRollSequence("Unsupported roll notation: " + roll);
+		var roll = new Roll(normalizedRolls.charAt(index));
+		if (!roll.isSupportedNotation()) {
+			throw invalidRollSequence("Unsupported roll notation: " + roll.notation());
 		}
 		return roll;
 	}
@@ -75,14 +73,6 @@ public class BowlingGameRollValidator {
 	private IllegalArgumentException invalidRollSequence(String message) {
 		LOGGER.warn("Invalid bowling roll sequence: {}", message);
 		return new IllegalArgumentException(message);
-	}
-
-	private boolean isStrike(char roll) {
-		return roll == STRIKE;
-	}
-
-	private boolean isSpare(char roll) {
-		return roll == SPARE;
 	}
 
 	private final class RollCursor {
@@ -94,19 +84,20 @@ public class BowlingGameRollValidator {
 			this.rolls = rolls;
 		}
 
-		private char readNextRoll() {
+		private Roll readNextRoll() {
 			return readRoll(rolls, index++);
 		}
 
-		private String peekNextRolls(int count) {
+		private List<Roll> peekNextRolls(int count) {
 			var endIndex = index + count;
+			var nextRolls = new ArrayList<Roll>(count);
 			for (var rollIndex = index; rollIndex < endIndex; rollIndex++) {
-				readRoll(rolls, rollIndex);
+				nextRolls.add(readRoll(rolls, rollIndex));
 			}
-			return rolls.substring(index, endIndex);
+			return List.copyOf(nextRolls);
 		}
 
-		private String readNextRolls(int count) {
+		private List<Roll> readNextRolls(int count) {
 			var nextRolls = peekNextRolls(count);
 			index += count;
 			return nextRolls;

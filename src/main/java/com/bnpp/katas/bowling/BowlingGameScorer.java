@@ -9,14 +9,14 @@ public class BowlingGameScorer {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(BowlingGameScorer.class);
 
-	private final BowlingGameRollValidator rollValidator;
+	private final BowlingGameParser parser;
 
-	public BowlingGameScorer(BowlingGameRollValidator rollValidator) {
-		this.rollValidator = rollValidator;
+	public BowlingGameScorer(BowlingGameParser parser) {
+		this.parser = parser;
 	}
 
 	public int score(String rolls) {
-		var total = rollValidator.validateAndParse(rolls).stream()
+		var total = parser.parse(rolls).stream()
 				.mapToInt(Frame::score)
 				.sum();
 

@@ -15,7 +15,7 @@ import org.springframework.boot.test.system.OutputCaptureExtension;
 @ExtendWith(OutputCaptureExtension.class)
 class BowlingGameScorerTest {
 
-	private final BowlingGameScorer scorer = new BowlingGameScorer(new BowlingGameRollValidator());
+	private final BowlingGameScorer scorer = new BowlingGameScorer(new BowlingGameParser());
 
 	@Test
 	void rejectsTooFewRollsToCompleteTenFrames() {

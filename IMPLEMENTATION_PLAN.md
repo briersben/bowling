@@ -18,11 +18,11 @@ passing, and all numbered steps below are marked DONE. Scoring is implemented;
 the test sequence is retained as a record of the completed TDD workflow.
 
 The scorer belongs in `com.bnpp.katas.bowling` and should be a Spring-managed
-service (`@Service`). Keep roll-count validation in a separate
-`BowlingGameRollValidator` component, injected into the scorer through its
+service (`@Service`). Keep notation parsing and roll-count validation in a
+separate `BowlingGameParser` component, injected into the scorer through its
 constructor. Inject the scorer through constructors into any other
 Spring-managed consumers. Keep focused scorer tests as ordinary JUnit tests
-without starting Spring; construct the real validator for scorer tests and
+without starting Spring; construct the real parser for scorer tests and
 use Mockito only if a test needs to isolate a real collaborator. Put tests in
 `src/test/java/com/bnpp/katas/bowling/BowlingGameScorerTest.java`.
 
@@ -261,7 +261,7 @@ All sequences in this phase are complete, valid games.
   begins.
 - [x] All fourteen cases are marked DONE in Progress tracking.
 - [x] Test results were reported at each TDD checkpoint before progressing.
-- [x] The complete Maven test suite passes (`.\mvnw.cmd test`: 31 tests, 0 failures/errors) after introducing the Frame model.
+- [x] The complete Maven test suite passes (`.\mvnw.cmd test`: 35 tests, 0 failures/errors) after introducing Frame and Roll models.
 - [x] The approved Frame-model refactoring preserves the existing scoring behavior and tests.
 
 ## Completed improvement: Model parsed frames
@@ -272,20 +272,40 @@ documented behavior unchanged.
 
 ### Implementation
 
-- `Frame` stores its own roll notation and any bonus-roll notation as separate
-  strings, and calculates its score from those values.
-- `BowlingGameRollValidator.validateAndParse` normalizes notation, validates
+- `Frame` stores immutable lists of its own `Roll` values and any bonus-roll
+  values, and calculates its score from those values.
+- `BowlingGameParser.parse` normalizes notation, validates
   the required rolls, and returns ten frames. For regular strikes and spares,
-  bonus notation is looked ahead without consuming rolls belonging to the
-  next frame. The tenth frame consumes its own bonus rolls.
+  bonus rolls are looked ahead without consuming rolls belonging to the next
+  frame. The tenth frame consumes its own bonus rolls.
 - `BowlingGameScorer` sums the parsed frame scores instead of maintaining
   scoring logic over indexes in the flattened roll string.
-- No separate `Roll` type was introduced; raw notation remains the frame's
-  stored representation.
 
 ### Verification and follow-up
 
-The full Maven suite passes with 31 tests. Review whether the explicit frame
-model and `RollCursor` make the parser easier to maintain; consider a
-dedicated roll-value type only if it meaningfully improves clarity without
-adding unnecessary conversion or domain-object boilerplate.
+The full Maven suite passes with 35 tests. Review whether the explicit frame
+model and `RollCursor` make the parser easier to maintain.
+
+### Roll model assessment and prototype
+
+A `Roll` type is not clearly beneficial for the current total-score-only
+requirements: a notation-based type must still receive prior-roll context to
+interpret `/`, while a resolved-value type moves that context into parsing.
+Either approach risks relocating the existing symbol switch without reducing
+complexity. A prototype was implemented and retained for review. `Roll`
+represents one normalized notation character and resolves its pin count given
+the preceding roll's pin count. `Frame` now stores lists of `Roll` values for
+its rolls and bonuses, and the parser constructs those values. The public
+scoring API and validation scope remain unchanged.
+
+The type makes per-roll semantics explicit and moves notation-to-pin
+conversion out of `Frame`, but the spare still requires context, notation
+validation remains in the validator, and parser/model code now creates and
+holds additional roll objects. Since `Frame` is the only consumer, this is a
+modest clarity benefit rather than a clear reduction in overall complexity.
+The prototype is retained as an intentional design choice for now; revisit it
+if the extra representation becomes burdensome or if roll behavior gains
+additional consumers.
+
+Focused `Roll`, `Frame`, parser, and scorer tests pass, and the complete Maven
+suite passes with 35 tests.
