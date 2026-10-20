@@ -82,6 +82,11 @@ exactly ten frames returns `400 Bad Request` with a Problem Details response.
 Interactive API documentation is available at `http://localhost:8080/swagger-ui/index.html`;
 the raw OpenAPI document is at `http://localhost:8080/v3/api-docs`.
 
+## Test coverage
+
+Run `.\mvnw.cmd verify` to execute the tests and generate the JaCoCo report at
+`target/site/jacoco/index.html`.
+
 ## Implementation tracking
 
 The step-by-step, user-checkpointed TDD sequence is documented in
