@@ -31,6 +31,16 @@ class BowlingGameParserTest {
 	}
 
 	@Test
+	void parsesSpareBonusWithoutConsumingFollowingFrame() {
+		var parser = new BowlingGameParser();
+
+		var frames = parser.parse("5/ 34 -- -- -- -- -- -- -- --");
+
+		assertEquals(new Frame(List.of(new Roll('5'), new Roll('/')), List.of(new Roll('3'))), frames.get(0));
+		assertEquals(new Frame(List.of(new Roll('3'), new Roll('4')), List.of()), frames.get(1));
+	}
+
+	@Test
 	void parsesLowercaseStrikeNotationAsCanonicalFrames() {
 		var parser = new BowlingGameParser();
 
