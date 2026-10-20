@@ -1,0 +1,73 @@
+openapi: 3.0.3
+info:
+  title: Bowling API
+  version: "1.0"
+  description: REST API for calculating the total score of a ten-pin bowling game.
+tags:
+  - name: Bowling
+paths:
+  /api/bowling/score:
+    post:
+      tags:
+        - Bowling
+      operationId: scoreBowlingGame
+      summary: Calculate a bowling game score
+      description: Scores one complete bowling game from its roll notation.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ScoreRequest"
+      responses:
+        "200":
+          description: Score calculated successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ScoreResponse"
+        "400":
+          description: Invalid or incomplete roll sequence
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+components:
+  schemas:
+    ScoreRequest:
+      type: object
+      required:
+        - rolls
+      properties:
+        rolls:
+          type: string
+          minLength: 1
+          pattern: ".*\\S.*"
+          description: Rolls use X or x for a strike, 1-9 for pins, - for a miss, and / for a spare. Whitespace is ignored.
+          example: X X X X X X X X X X X X
+    ScoreResponse:
+      type: object
+      required:
+        - score
+      properties:
+        score:
+          type: integer
+          format: int32
+          description: The total score for the bowling game.
+    ProblemDetail:
+      type: object
+      description: A standard problem details response.
+      properties:
+        type:
+          type: string
+          format: uri-reference
+        title:
+          type: string
+        status:
+          type: integer
+          format: int32
+        detail:
+          type: string
+        instance:
+          type: string
+          format: uri-reference

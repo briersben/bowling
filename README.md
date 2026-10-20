@@ -79,8 +79,13 @@ The endpoint delegates to `BowlingGameScorer`. The `rolls` value accepts `X` or
 whitespace is ignored. Invalid notation or a sequence that does not complete
 exactly ten frames returns `400 Bad Request` with a Problem Details response.
 
-Interactive API documentation is available at `http://localhost:8080/swagger-ui/index.html`;
-the raw OpenAPI document is at `http://localhost:8080/v3/api-docs`.
+The OpenAPI contract is maintained in
+`src/main/resources/static/openapi/bowling.yaml`. Maven generates the Spring
+API interface and DTO models from this contract during `generate-sources`.
+Interactive API documentation is available at
+`http://localhost:8080/swagger-ui/index.html`; the contract is served at
+`http://localhost:8080/openapi/bowling.yaml`; the raw OpenAPI document is at
+`http://localhost:8080/v3/api-docs`.
 
 ## Test coverage
 
