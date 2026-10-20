@@ -19,6 +19,18 @@ class BowlingGameParserTest {
 	}
 
 	@Test
+	void parsesConsecutiveStrikesWithoutConsumingFollowingFrames() {
+		var parser = new BowlingGameParser();
+
+		var frames = parser.parse("X X 34 -- -- -- -- -- -- --");
+
+		assertEquals(new Frame(List.of(new Roll('X')), List.of(new Roll('X'), new Roll('3'))), frames.get(0));
+		assertEquals(new Frame(List.of(new Roll('X')), List.of(new Roll('3'), new Roll('4'))), frames.get(1));
+		assertEquals(new Frame(List.of(new Roll('3'), new Roll('4')), List.of()), frames.get(2));
+		assertEquals(10, frames.size());
+	}
+
+	@Test
 	void parsesLowercaseStrikeNotationAsCanonicalFrames() {
 		var parser = new BowlingGameParser();
 

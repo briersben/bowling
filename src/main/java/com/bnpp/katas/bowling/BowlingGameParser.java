@@ -3,6 +3,7 @@ package com.bnpp.katas.bowling;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.function.IntFunction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -31,30 +32,22 @@ public class BowlingGameParser {
 	}
 
 	private Frame parseRegularFrame(RollCursor rollCursor) {
-		var firstRoll = rollCursor.readNextRoll();
-		if (firstRoll.isStrike()) {
-			return new Frame(
-					List.of(firstRoll),
-					rollCursor.peekNextRolls(2));
-		}
-
-		var secondRoll = rollCursor.readNextRoll();
-		var frameRolls = List.of(firstRoll, secondRoll);
-		var bonusRolls = secondRoll.isSpare() ? rollCursor.peekNextRolls(1) : List.<Roll>of();
-		return new Frame(frameRolls, bonusRolls);
+		return parseFrame(rollCursor, rollCursor::peekNextRolls);
 	}
 
 	private Frame parseTenthFrame(RollCursor rollCursor) {
+		return parseFrame(rollCursor, rollCursor::readNextRolls);
+	}
+
+	private Frame parseFrame(RollCursor rollCursor, IntFunction<List<Roll>> bonusRollReader) {
 		var firstRoll = rollCursor.readNextRoll();
 		if (firstRoll.isStrike()) {
-			return new Frame(
-					List.of(firstRoll),
-					rollCursor.readNextRolls(2));
+			return new Frame(List.of(firstRoll), bonusRollReader.apply(2));
 		}
 
 		var secondRoll = rollCursor.readNextRoll();
 		var frameRolls = List.of(firstRoll, secondRoll);
-		var bonusRolls = secondRoll.isSpare() ? rollCursor.readNextRolls(1) : List.<Roll>of();
+		var bonusRolls = secondRoll.isSpare() ? bonusRollReader.apply(1) : List.<Roll>of();
 		return new Frame(frameRolls, bonusRolls);
 	}
 
