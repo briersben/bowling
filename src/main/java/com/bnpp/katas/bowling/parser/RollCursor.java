@@ -1,7 +1,7 @@
 package com.bnpp.katas.bowling.parser;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,11 +24,9 @@ final class RollCursor {
 
 	List<Roll> peekNextRolls(int count) {
 		var endIndex = index + count;
-		var nextRolls = new ArrayList<Roll>(count);
-		for (var rollIndex = index; rollIndex < endIndex; rollIndex++) {
-			nextRolls.add(readRoll(rollIndex));
-		}
-		return List.copyOf(nextRolls);
+		return IntStream.range(index, endIndex)
+				.mapToObj(this::readRoll)
+				.toList();
 	}
 
 	List<Roll> readNextRolls(int count) {

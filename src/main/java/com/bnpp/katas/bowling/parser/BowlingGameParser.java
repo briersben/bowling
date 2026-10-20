@@ -17,6 +17,7 @@ public class BowlingGameParser {
 		var rollCursor = new RollCursor(normalizedRolls);
 		var frames = new ArrayList<Frame>(10);
 
+		// A loop keeps the nine regular frames separate from the tenth; a stream would not simplify its bonus-roll handling.
 		for (var frame = 0; frame < 9; frame++) {
 			frames.add(parseRegularFrame(rollCursor));
 		}
