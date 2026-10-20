@@ -1,4 +1,4 @@
-package com.bnpp.katas.bowling;
+package com.bnpp.katas.bowling.domain;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

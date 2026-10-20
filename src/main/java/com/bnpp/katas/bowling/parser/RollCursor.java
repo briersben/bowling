@@ -1,9 +1,11 @@
-package com.bnpp.katas.bowling;
+package com.bnpp.katas.bowling.parser;
 
 import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.bnpp.katas.bowling.domain.Roll;
 
 final class RollCursor {
 

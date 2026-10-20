@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bnpp.katas.bowling.BowlingGameScorer;
+import com.bnpp.katas.bowling.service.BowlingGameScorer;
 import com.bnpp.katas.bowling.dto.ScoreRequest;
 import com.bnpp.katas.bowling.dto.ScoreResponse;
 

@@ -1,9 +1,12 @@
-package com.bnpp.katas.bowling;
+package com.bnpp.katas.bowling.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 import org.junit.jupiter.api.Test;
+
+import com.bnpp.katas.bowling.domain.Frame;
+import com.bnpp.katas.bowling.domain.Roll;
 
 class BowlingGameParserTest {
 

@@ -1,15 +1,15 @@
-package com.bnpp.katas.bowling;
+package com.bnpp.katas.bowling.domain;
 
 import java.util.List;
 
-record Frame(List<Roll> rolls, List<Roll> bonusRolls) {
+public record Frame(List<Roll> rolls, List<Roll> bonusRolls) {
 
-	Frame {
+	public Frame {
 		rolls = List.copyOf(rolls);
 		bonusRolls = List.copyOf(bonusRolls);
 	}
 
-	int score() {
+	public int score() {
 		var score = 0;
 		var previousRollPinCount = 0;
 

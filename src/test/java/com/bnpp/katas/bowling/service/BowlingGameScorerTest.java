@@ -1,4 +1,4 @@
-package com.bnpp.katas.bowling;
+package com.bnpp.katas.bowling.service;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -11,6 +11,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.boot.test.system.CapturedOutput;
 import org.springframework.boot.test.system.OutputCaptureExtension;
+
+import com.bnpp.katas.bowling.parser.BowlingGameParser;
 
 @ExtendWith(OutputCaptureExtension.class)
 class BowlingGameScorerTest {

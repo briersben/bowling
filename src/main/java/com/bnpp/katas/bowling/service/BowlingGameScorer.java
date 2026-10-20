@@ -1,8 +1,11 @@
-package com.bnpp.katas.bowling;
+package com.bnpp.katas.bowling.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+
+import com.bnpp.katas.bowling.domain.Frame;
+import com.bnpp.katas.bowling.parser.BowlingGameParser;
 
 @Service
 public class BowlingGameScorer {

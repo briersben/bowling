@@ -1,10 +1,13 @@
-package com.bnpp.katas.bowling;
+package com.bnpp.katas.bowling.parser;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.function.IntFunction;
 import org.springframework.stereotype.Component;
+
+import com.bnpp.katas.bowling.domain.Frame;
+import com.bnpp.katas.bowling.domain.Roll;
 
 @Component
 public class BowlingGameParser {

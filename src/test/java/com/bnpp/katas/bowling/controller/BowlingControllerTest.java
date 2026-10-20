@@ -14,7 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.bnpp.katas.bowling.BowlingGameScorer;
+import com.bnpp.katas.bowling.service.BowlingGameScorer;
 
 @WebMvcTest(BowlingController.class)
 class BowlingControllerTest {
