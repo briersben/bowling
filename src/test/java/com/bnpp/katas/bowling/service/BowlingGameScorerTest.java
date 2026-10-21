@@ -48,6 +48,13 @@ class BowlingGameScorerTest {
 	}
 
 	@Test
+	void rejectsSpareNotationAsFirstRoll() {
+		var rolls = "/1 -- -- -- -- -- -- -- -- --";
+
+		assertThrows(IllegalArgumentException.class, () -> scorer.score(rolls));
+	}
+
+	@Test
 	void scoresTenOpenFrames() {
 		var rolls = "12 12 12 12 12 12 12 12 12 12";
 
