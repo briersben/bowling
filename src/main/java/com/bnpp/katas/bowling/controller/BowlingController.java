@@ -3,6 +3,7 @@ package com.bnpp.katas.bowling.controller;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bnpp.katas.bowling.api.BowlingApi;
+import com.bnpp.katas.bowling.dto.CountResponse;
 import com.bnpp.katas.bowling.dto.ScoreRequest;
 import com.bnpp.katas.bowling.dto.ScoreResponse;
 import com.bnpp.katas.bowling.service.BowlingGameScorer;
@@ -19,5 +20,15 @@ public class BowlingController implements BowlingApi {
 	@Override
 	public ScoreResponse scoreBowlingGame(ScoreRequest scoreRequest) {
 		return new ScoreResponse(scorer.score(scoreRequest.getRolls()));
+	}
+
+	@Override
+	public CountResponse countStrikes(ScoreRequest scoreRequest) {
+		return new CountResponse(scorer.countStrikes(scoreRequest.getRolls()));
+	}
+
+	@Override
+	public CountResponse countSpares(ScoreRequest scoreRequest) {
+		return new CountResponse(scorer.countSpares(scoreRequest.getRolls()));
 	}
 }

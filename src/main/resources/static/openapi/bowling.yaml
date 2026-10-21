@@ -32,6 +32,58 @@ paths:
             application/problem+json:
               schema:
                 $ref: "#/components/schemas/ProblemDetail"
+  /api/bowling/strikes:
+    post:
+      tags:
+        - Bowling
+      operationId: countStrikes
+      summary: Count strikes in a bowling game
+      description: Counts strikes thrown in one complete bowling game, including tenth-frame bonus rolls.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ScoreRequest"
+      responses:
+        "200":
+          description: Strike count calculated successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CountResponse"
+        "400":
+          description: Invalid or incomplete roll sequence
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+  /api/bowling/spares:
+    post:
+      tags:
+        - Bowling
+      operationId: countSpares
+      summary: Count spares in a bowling game
+      description: Counts spare frames in one complete bowling game.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ScoreRequest"
+      responses:
+        "200":
+          description: Spare count calculated successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CountResponse"
+        "400":
+          description: Invalid or incomplete roll sequence
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
 components:
   schemas:
     ScoreRequest:
@@ -54,6 +106,15 @@ components:
           type: integer
           format: int32
           description: The total score for the bowling game.
+    CountResponse:
+      type: object
+      required:
+        - count
+      properties:
+        count:
+          type: integer
+          format: int32
+          description: The number of requested events in the bowling game.
     ProblemDetail:
       type: object
       description: A standard problem details response.
