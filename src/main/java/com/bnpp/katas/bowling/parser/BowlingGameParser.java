@@ -40,14 +40,24 @@ public class BowlingGameParser {
 	}
 
 	private Frame parseFrame(RollCursor rollCursor, IntFunction<List<Roll>> bonusRollReader) {
-		var firstRoll = rollCursor.readNextRoll();
-		if (firstRoll.isSpare()) {
-			throw RollCursor.invalidRollSequence("A spare cannot be the first roll of a frame");
-		}
+		var firstRoll = parseFirstRoll(rollCursor);
 		if (firstRoll.isStrike()) {
 			return new Frame(List.of(firstRoll), bonusRollReader.apply(2));
 		}
 
+		return parseSecondRoll(rollCursor, firstRoll, bonusRollReader);
+	}
+
+	private Roll parseFirstRoll(RollCursor rollCursor) {
+		var firstRoll = rollCursor.readNextRoll();
+		if (firstRoll.isSpare()) {
+			throw RollCursor.invalidRollSequence("A spare cannot be the first roll of a frame");
+		}
+		return firstRoll;
+	}
+
+	private Frame parseSecondRoll(RollCursor rollCursor, Roll firstRoll,
+			IntFunction<List<Roll>> bonusRollReader) {
 		var secondRoll = rollCursor.readNextRoll();
 		var frameRolls = List.of(firstRoll, secondRoll);
 		var bonusRolls = secondRoll.isSpare() ? bonusRollReader.apply(1) : List.<Roll>of();
