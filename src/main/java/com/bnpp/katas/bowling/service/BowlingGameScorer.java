@@ -42,4 +42,14 @@ public class BowlingGameScorer {
 		LOGGER.debug("Bowling game strikes: {}", totalStrikes);
 		return totalStrikes;
 	}
+
+	public int countSpares(String rolls) {
+		var totalSpares = Math.toIntExact(parser.parse(rolls).stream()
+				.flatMap(frame -> frame.rolls().stream())
+				.filter(Roll::isSpare)
+				.count());
+
+		LOGGER.debug("Bowling game spares: {}", totalSpares);
+		return totalSpares;
+	}
 }
