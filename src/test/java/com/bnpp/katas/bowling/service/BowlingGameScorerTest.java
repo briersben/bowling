@@ -132,6 +132,20 @@ class BowlingGameScorerTest {
 	}
 
 	@Test
+	void countsAllSpareFramesIncludingTheTenthFrame() {
+		var rolls = "5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/ 5";
+
+		assertEquals(10, scorer.countSpares(rolls));
+	}
+
+	@Test
+	void doesNotCountSpareNotationUsedAsStrikeBonus() {
+		var rolls = "5/ 12 12 12 12 12 12 12 12 X 5/";
+
+		assertEquals(1, scorer.countSpares(rolls));
+	}
+
+	@Test
 	void scoresStrikeSpareAndOpenFrames() {
 		var rolls = "X 5/ 34 -- -- -- -- -- -- --";
 
