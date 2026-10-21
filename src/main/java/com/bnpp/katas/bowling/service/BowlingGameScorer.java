@@ -37,7 +37,9 @@ public class BowlingGameScorer {
 		var strikesInTenthFrameBonus = frames.getLast().bonusRolls().stream()
 				.filter(Roll::isStrike)
 				.count();
+		var totalStrikes = Math.toIntExact(strikesInFrames + strikesInTenthFrameBonus);
 
-		return Math.toIntExact(strikesInFrames + strikesInTenthFrameBonus);
+		LOGGER.debug("Bowling game strikes: {}", totalStrikes);
+		return totalStrikes;
 	}
 }

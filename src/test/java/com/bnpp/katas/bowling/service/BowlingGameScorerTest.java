@@ -153,6 +153,13 @@ class BowlingGameScorerTest {
 	}
 
 	@Test
+	void logsStrikeCountAtDebugLevel(CapturedOutput output) {
+		scorer.countStrikes("X X X X X X X X X X X X");
+
+		assertTrue(output.getAll().contains("Bowling game strikes: 12"));
+	}
+
+	@Test
 	void logsInvalidRollSequenceWhenGameIsIncomplete(CapturedOutput output) {
 		var rolls = "-- -- -- -- -- -- -- -- -- -";
 
