@@ -7,6 +7,14 @@ import org.slf4j.LoggerFactory;
 
 import com.bnpp.katas.bowling.domain.Roll;
 
+/**
+ * Reads normalized rolls in order and checks that each requested roll exists.
+ * Each frame can use a different number of rolls, and regular frames may need
+ * to look ahead at bonus rolls without consuming them. A loop makes that
+ * step-by-step reading clear. A stream would still need to update the cursor
+ * while parsing each frame and preserve its position during bonus-roll
+ * lookahead, but those state changes would be less visible in the pipeline.
+ */
 final class RollCursor {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(RollCursor.class);
