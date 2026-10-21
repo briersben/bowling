@@ -125,6 +125,13 @@ class BowlingGameScorerTest {
 	}
 
 	@Test
+	void countsAllStrikesIncludingTenthFrameBonusRolls() {
+		var rolls = "X X X X X X X X X X X X";
+
+		assertEquals(12, scorer.countStrikes(rolls));
+	}
+
+	@Test
 	void scoresStrikeSpareAndOpenFrames() {
 		var rolls = "X 5/ 34 -- -- -- -- -- -- --";
 
