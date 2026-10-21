@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.bnpp.katas.bowling.domain.Frame;
+import com.bnpp.katas.bowling.domain.Roll;
 import com.bnpp.katas.bowling.parser.BowlingGameParser;
 
 @Service
@@ -25,5 +26,18 @@ public class BowlingGameScorer {
 
 		LOGGER.debug("Bowling game score: {}", total);
 		return total;
+	}
+
+	public int countStrikes(String rolls) {
+		var frames = parser.parse(rolls);
+		var strikesInFrames = frames.stream()
+				.flatMap(frame -> frame.rolls().stream())
+				.filter(Roll::isStrike)
+				.count();
+		var strikesInTenthFrameBonus = frames.getLast().bonusRolls().stream()
+				.filter(Roll::isStrike)
+				.count();
+
+		return Math.toIntExact(strikesInFrames + strikesInTenthFrameBonus);
 	}
 }
