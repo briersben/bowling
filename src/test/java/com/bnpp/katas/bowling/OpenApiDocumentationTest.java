@@ -24,7 +24,11 @@ class OpenApiDocumentationTest {
 				.andExpect(status().isOk())
 				.andExpect(content().string(Matchers.containsString("openapi: 3.0.3")))
 				.andExpect(content().string(Matchers.containsString("/api/bowling/score:")))
+				.andExpect(content().string(Matchers.containsString("/api/bowling/strikes:")))
+				.andExpect(content().string(Matchers.containsString("/api/bowling/spares:")))
 				.andExpect(content().string(Matchers.containsString("Calculate a bowling game score")))
+				.andExpect(content().string(Matchers.containsString("Count strikes in a bowling game")))
+				.andExpect(content().string(Matchers.containsString("Count spares in a bowling game")))
 				.andExpect(content().string(Matchers.containsString("Invalid or incomplete roll sequence")));
 	}
 

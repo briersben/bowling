@@ -42,6 +42,38 @@ class BowlingControllerTest {
 	}
 
 	@Test
+	void countsStrikesInRollSequence() throws Exception {
+		var rolls = "X X X X X X X X X X X X";
+		when(scorer.countStrikes(rolls)).thenReturn(12);
+
+		mockMvc.perform(post("/api/bowling/strikes")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content("""
+						{"rolls":"X X X X X X X X X X X X"}
+						"""))
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$.count").value(12));
+
+		verify(scorer).countStrikes(rolls);
+	}
+
+	@Test
+	void countsSparesInRollSequence() throws Exception {
+		var rolls = "5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/ 5";
+		when(scorer.countSpares(rolls)).thenReturn(10);
+
+		mockMvc.perform(post("/api/bowling/spares")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content("""
+						{"rolls":"5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/ 5"}
+						"""))
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$.count").value(10));
+
+		verify(scorer).countSpares(rolls);
+	}
+
+	@Test
 	void rejectsBlankRollSequence() throws Exception {
 		mockMvc.perform(post("/api/bowling/score")
 				.contentType(MediaType.APPLICATION_JSON)
