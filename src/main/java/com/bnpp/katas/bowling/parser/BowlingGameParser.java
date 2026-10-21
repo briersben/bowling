@@ -41,6 +41,9 @@ public class BowlingGameParser {
 
 	private Frame parseFrame(RollCursor rollCursor, IntFunction<List<Roll>> bonusRollReader) {
 		var firstRoll = rollCursor.readNextRoll();
+		if (firstRoll.isSpare()) {
+			throw RollCursor.invalidRollSequence("A spare cannot be the first roll of a frame");
+		}
 		if (firstRoll.isStrike()) {
 			return new Frame(List.of(firstRoll), bonusRollReader.apply(2));
 		}
